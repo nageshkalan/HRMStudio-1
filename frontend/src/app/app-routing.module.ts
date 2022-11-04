@@ -1,0 +1,36 @@
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './core/authentication/auth.guard';
+import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    loadChildren: () =>
+      import('./user/user.module').then((m) => m.UserModule),
+       //canActivate: [AuthGuard],
+  },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./account/account.module').then((m) => m.AccountModule),
+  },
+  {
+    path: 'register/:id',
+    loadChildren: () =>
+      import('src/app/password/password.module').then(
+        m => m.PasswordModule
+      ),
+    data: { icon: 'assignment', text: 'Password' }
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
+  },
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
+})
+export class AppRoutingModule {}

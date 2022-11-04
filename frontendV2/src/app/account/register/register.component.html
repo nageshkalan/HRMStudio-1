@@ -1,0 +1,95 @@
+<div class="page-wrap h-full slate">
+  <div class="session-form-hold">
+    <mat-progress-bar mode="determinate" class="session-progress"></mat-progress-bar>
+    <mat-card>
+      <mat-card-content>
+        <div class="text-center pt-8 pb-16">
+          <img width="60px" src="assets/images/mastec-logo2.png" alt="" class="mb-8">
+           <h2>Lets get started</h2>
+          <p class="text-muted m-0">Register to use our service</p>
+        </div>
+
+        <p *ngIf="errorMsg" class="text-center"><small class="text-red">{{errorMsg}}</small></p>
+
+        <form [formGroup]="signupForm"  (ngSubmit)="signup()">
+          <div class="">
+            <mat-form-field class="full-width">
+              <input 
+                type="text"
+                name="fullName"
+                matInput
+                [formControl]="signupForm.controls['fullName']"
+                placeholder="Your Full Name" 
+                value="">
+            </mat-form-field>
+            <small 
+              *ngIf="signupForm.controls['fullName'].hasError('required') && signupForm.controls['fullName'].touched" 
+              class="form-error-msg"> Name is required </small>
+          </div>
+          <div class="">
+            <mat-form-field class="full-width">
+              <input
+                type="email"
+                name="email"
+                matInput
+                [formControl]="signupForm.controls['email']"
+                placeholder="Your Email"
+                value="">
+            </mat-form-field>
+            <small 
+              *ngIf="signupForm.controls['email'].hasError('required') && signupForm.controls['email'].touched" 
+              class="form-error-msg"> Email is required </small>
+
+              <small 
+                *ngIf="signupForm.controls['email'].hasError('email') && signupForm.controls['email'].touched" 
+                class="form-error-msg"> Invaild email address </small>
+          </div>
+
+          <div class="">
+            <mat-form-field class="full-width">
+              <input 
+                type="password"
+                name="password"
+                matInput
+                [formControl]="signupForm.controls['password']"
+                placeholder="Password" 
+                value="">
+            </mat-form-field>
+            <small 
+              *ngIf="signupForm.controls['password'].hasError('required') && signupForm.controls['password'].touched" 
+              class="form-error-msg"> Password is required </small>
+          </div>
+          <div class="">
+            <mat-form-field class="full-width">
+              <input 
+                type="password"
+                name="confirmPassword"
+                matInput
+                [formControl]="signupForm.controls['confirmPassword']"
+                placeholder="Confirm Password" 
+                value="">
+            </mat-form-field>
+            <small 
+              *ngIf="signupForm.controls['confirmPassword'].hasError('required') && signupForm.controls['confirmPassword'].touched" 
+              class="form-error-msg"> Confirm Password is required </small>
+          </div>
+          <div class="pb-16">
+            <mat-checkbox
+              name="agreed"
+              [formControl]="signupForm.controls['agreed']"
+              class="pb-16">I have read and agree to the terms of service.</mat-checkbox>
+
+              <small 
+                *ngIf="signupForm.controls['agreed'].hasError('agreed') && signupForm.controls['agreed'].touched" 
+                class="form-error-msg"> You must agree to the terms and conditions </small>
+          </div>
+
+          <button mat-raised-button class="mat-primary full-width mb-16" [disabled]="signupForm.invalid">Register</button>
+          <div class="text-center">
+            <a [routerLink]="'/account/login'" class="text-center full-width">Login to existing account</a>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
